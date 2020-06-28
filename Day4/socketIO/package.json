@@ -1,0 +1,14 @@
+{
+  "name": "network_socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jack",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.7.4"
+  }
+}
