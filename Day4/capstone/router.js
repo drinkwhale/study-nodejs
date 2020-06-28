@@ -1,7 +1,7 @@
 "use strict";
 
 const httpStatus = require("http-status-codes"),
-    contentTypes = require("./content-types"),
+    contentTypes = require("./contentTypes"),
     utils = require("./utils");
 
 const routes = {
