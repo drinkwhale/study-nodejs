@@ -1,13 +1,28 @@
+doctype html
 html
     head
         title Index Page
+        style.
+            * {margin:0px; padding:0px;}
+            h1  {
+                color: red;
+            }
+        script(src="https://code.jquery.com/jquery-1.12.4.js")
+        script.
+            $(document).ready(function(){
+                let appha=10;
+            });
     body
-        h1  Hello Jade!!
-        h2  View Engine
+        h1  pug style #{name} ...!
+        h2= description
         hr
         #header
             h1  Hello Jade!!
             h2  View Engine
         hr
         .article
-            a(href="http://hanbit.co.kr" data-test="multiple Attribute") Goto Hanbit Media Site
+            a(href="http://hanbit.co.kr" data-test="multiple Attribute") Goto Hanbit Media
+        - for(let i=0; i<10; i++){
+            p
+                a(href="http://hanbit.co.kr" data-test="multiple Attribute") Goto Hanbit Media #{i}
+        - }
