@@ -1,31 +1,37 @@
 "use strict";
 
-const port = 3000,
-    express = require('express'),
+const express = require("express"),
     app = express(),
-    homeController = require('./controllers/homeController');
+    errorController = require("./controllers/errorController"),
+    homeController = require("./controllers/homeController"),
+    layouts = require("express-ejs-layouts");
 
+app.set("port", process.env.PORT || 3000);
+app.set("view engine", "ejs");
+
+app.use(express.static("public"));
+app.use(layouts);
 app.use(
     express.urlencoded({
         extended: false
     })
 );
+app.use(express.json());
+app.use(homeController.logRequestPaths);
 
-app.use(express.json);
-
-app.use((req, res, next) => {
-    console.log(`request made to : ${req.url}`);
-    next();
-});
+app.get("/name", homeController.respondWithName);
+app.get("/items/:vegetable", homeController.sendReqParam);
 
 app.post("/", (req, res) => {
     console.log(req.body);
     console.log(req.query);
-    res.send("POST Successful!!");
+    res.send("POST Successful!");
 });
 
-app.get("/items/:vegetable", homeController.sendReqParam);
+app.use(errorController.logErrors);
+app.use(errorController.respondNoResourceFound);
+app.use(errorController.respondInternalError);
 
-app.listen(port, () => {
-    console.log(`Server started at port number : ${port}`);
+app.listen(app.get("port"), () => {
+    console.log(`Server running at http://localhost:${app.get("port")}`);
 });
