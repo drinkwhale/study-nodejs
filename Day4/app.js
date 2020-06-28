@@ -1,12 +1,14 @@
-const ejs = require('ejs');
+const jade = require('jade');
 const fs = require('fs');
 const http = require('http');
 
 http.createServer(function(req, res){
-    fs.readFile('ejs1.ejs','utf-8',function(error,data){
+    fs.readFile('test.jade','utf-8',function(error,data){
         console.log(data);
+        let fn = jade.compile(data);
+        
         res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(ejs.render(data, {
+        res.end(fn ({
             name: 'Mydata',
             description: 'Hello Ejs'
         }));
