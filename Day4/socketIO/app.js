@@ -5,7 +5,7 @@ const http = require('http'),
 
 let socketio = require('socket.io');
 
-const server = http.createServer(function (req, res) {
+let server = http.createServer(function (req, res) {
 
     // HTML 파일 읽기
     fs.readFile('HTMLPage.html', function (error, data) {
@@ -21,16 +21,7 @@ const server = http.createServer(function (req, res) {
 let io = socketio.listen(server);
 io.sockets.on('connect', function (socket) {
 
-    // 방 이름 생성
-    let roomName = null;
-
-    socket.on('join', function (data) {
-        roomName = data;
-        socket.join(data);
+    socket.on('message', (data) => {
+        io.sockets.emit('message', data);
     });
-
-    socket.on('message', function (data) {
-        io.sockets.in(roomName).emit('message', 'test');
-    });
-
 });
